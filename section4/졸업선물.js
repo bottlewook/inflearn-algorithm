@@ -5,6 +5,7 @@ function solution(m, product) {
     let money = m - (product[i][0] / 2 + product[i][1]);
     let count = 1;
     for (let j = 0; j < product.length; j++) {
+      if (i !== j && product[j][0] + product[j][1] > money) break;
       if (i !== j && product[j][0] + product[j][1] <= money) {
         money -= product[j][0] + product[j][1];
         count++;
