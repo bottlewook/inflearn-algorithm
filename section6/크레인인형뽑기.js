@@ -7,23 +7,13 @@ function solution(board, moves) {
       let grab;
       if (board[i][move - 1] !== 0) {
         grab = board[i][move - 1];
-        stack.push(grab);
         board[i][move - 1] = 0;
-        break;
-      }
-    }
-  }
-
-  let flag = true;
-  while (flag) {
-    flag = false;
-    console.log(stack);
-    for (let i = 0; i < stack.length - 1; i++) {
-      if (stack[i] === stack[i + 1]) {
-        stack.splice(i + 1, 1);
-        stack.splice(i, 1);
-        answer += 2;
-        flag = true;
+        if (grab === stack[stack.length - 1]) {
+          stack.pop();
+          answer += 2;
+        } else {
+          stack.push(grab);
+        }
         break;
       }
     }
