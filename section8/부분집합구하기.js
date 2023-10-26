@@ -10,8 +10,9 @@ function solution(n) {
           temp.push(i);
         }
       }
-
-      temp.length && answer.push(temp);
+      if (temp.length) {
+        answer.push(temp);
+      }
     } else {
       checkList[vertex] = 1;
       DFS(vertex + 1);
