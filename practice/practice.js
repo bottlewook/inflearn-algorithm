@@ -1,16 +1,16 @@
 function solution(arr) {
-  let answer = 0;
-  let count = 0;
-  for (let x of arr) {
-    if (x === 1) {
-      count++;
-      answer += count;
-    } else {
-      count = 0;
+  let answer = [];
+  for (let i = 0; i < arr.length; i++) {
+    let rank = 1;
+    for (let j = 0; j < arr.length; j++) {
+      if (arr[i] < arr[j] && i !== j) {
+        rank++;
+      }
     }
+    answer[i] = rank;
   }
   return answer;
 }
 
-let arr = [1, 0, 1, 1, 1, 0, 0, 1, 1, 0];
+let arr = [87, 87, 92, 100, 76];
 console.log(solution(arr));
