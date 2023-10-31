@@ -1,24 +1,29 @@
-function isPrime(num) {
-  if (num === 1) return false;
-  for (let i = 2; i < num; i++) {
-    if (num % i === 0) return false;
-  }
-  return true;
-}
-function solution(arr) {
-  let answer = [];
-  for (let x of arr) {
-    let temp = 0;
-    let reverse = 0;
-    while (x) {
-      temp = x % 10;
-      reverse = reverse * 10 + temp;
-      x = Math.floor(x / 10);
+function solution(test) {
+  let answer = 0;
+  let m = test.length; // 3
+  let n = test[0].length; // 4
+
+  for (let i = 1; i <= n; i++) {
+    for (let j = 0; j <= n; j++) {
+      let count = 0;
+      for (let k = 0; k < m; k++) {
+        let pi = 0;
+        let pj = 0;
+        for (let s = 0; s < n; s++) {
+          if (test[k][s] === i) pi = s;
+          if (test[k][s] === j) pj = s;
+        }
+        if (pi < pj) count++;
+      }
+      if (count === m) answer++;
     }
-    if (isPrime(reverse)) answer.push(reverse);
   }
   return answer;
 }
 
-let arr = [32, 55, 62, 20, 250, 370, 200, 30, 100];
+let arr = [
+  [3, 4, 1, 2],
+  [4, 3, 2, 1],
+  [3, 1, 4, 2],
+];
 console.log(solution(arr));
