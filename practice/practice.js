@@ -1,20 +1,16 @@
 function solution(arr) {
-  let answer = [];
-  let flag = 0;
-  let sum = arr.reduce((a, b) => a + b, 0);
-  for (let i = 0; i < arr.length - 1; i++) {
-    for (let j = 0; j < arr.length; j++) {
-      if (arr[i] + arr[j] === sum - 100) {
-        answer.push(...arr.splice(j, 1));
-        answer.push(...arr.splice(i, 1));
-        flag = 1;
-        break;
-      }
+  let answer = 0;
+  let count = 0;
+  for (let x of arr) {
+    if (x === 1) {
+      count++;
+      answer += count;
+    } else {
+      count = 0;
     }
-    if (flag) break;
   }
   return answer;
 }
 
-let arr = [22, 7, 21, 19, 10, 15, 25, 8, 13];
+let arr = [1, 0, 1, 1, 1, 0, 0, 1, 1, 0];
 console.log(solution(arr));
