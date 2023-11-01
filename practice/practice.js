@@ -1,30 +1,24 @@
-function solution(m, product) {
-  let answer = 0;
-  product.sort((a, b) => {
-    if (a[0] === b[0]) return a[1] - b[1];
-    else return a[0] - b[0];
-  });
-  console.log(product);
-  for (let i = 0; i < product.length; i++) {
-    let max = 1;
-    let money = m - (product[i][0] / 2 + product[i][1]);
-    for (let j = 0; j < product.length; j++) {
-      if (i !== j && product[j][0] + product[j][1] > money) break;
-      if (i !== j && product[j][0] + product[j][1] <= money) {
-        max++;
-        money -= product[j][0] + product[j][1];
-      }
+function solution(arr1, arr2) {
+  let answer = [];
+  arr1.sort((a, b) => a - b);
+  arr2.sort((a, b) => a - b);
+
+  let i = 0;
+  let j = 0;
+
+  while (i < arr1.length && j < arr2.length) {
+    if (arr1[i] > arr2[j]) {
+      j++;
+    } else if (arr1[i] < arr2[j]) {
+      i++;
+    } else {
+      answer.push(arr1[i]);
+      i++;
     }
-    answer = Math.max(answer, max);
   }
   return answer;
 }
 
-let arr = [
-  [6, 6],
-  [2, 2],
-  [4, 3],
-  [4, 5],
-  [10, 3],
-];
-console.log(solution(28, arr));
+let a = [1, 3, 9, 5, 2];
+let b = [3, 2, 5, 7, 8];
+console.log(solution(a, b));
