@@ -1,24 +1,20 @@
-function solution(arr1, arr2) {
-  let answer = [];
-  arr1.sort((a, b) => a - b);
-  arr2.sort((a, b) => a - b);
-
+function solution(m, arr) {
+  let answer = 0;
+  let sum = 0;
   let i = 0;
-  let j = 0;
-
-  while (i < arr1.length && j < arr2.length) {
-    if (arr1[i] > arr2[j]) {
-      j++;
-    } else if (arr1[i] < arr2[j]) {
-      i++;
-    } else {
-      answer.push(arr1[i]);
+  for (let j = 0; j < arr.length; j++) {
+    sum += arr[j];
+    if (sum === m) {
+      answer++;
+    }
+    while (sum > m) {
+      sum -= arr[i];
+      if (sum === m) answer++;
       i++;
     }
   }
   return answer;
 }
 
-let a = [1, 3, 9, 5, 2];
-let b = [3, 2, 5, 7, 8];
-console.log(solution(a, b));
+let a = [1, 2, 1, 3, 1, 1, 1, 2];
+console.log(solution(6, a));
