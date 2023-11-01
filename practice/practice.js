@@ -1,16 +1,12 @@
-function solution(s) {
-  let answer = 0;
-  let stack = [];
-  for (let i = 0; i < s.length; i++) {
-    if (s[i] === "(") stack.push("(");
-    else {
-      stack.pop();
-      if (s[i - 1] === "(") answer += stack.length;
-      else answer++;
-    }
+function solution(n, k) {
+  let queue = Array.from({ length: n }, (_, index) => index + 1);
+  while (queue.length) {
+    for (let i = 1; i < k; i++) queue.push(queue.shift());
+    queue.shift();
+    if (queue.length === 1) answer = queue.shift();
   }
-  return answer;
+
+  console.log(queue);
 }
 
-let a = "()(((()())(())()))(())";
-console.log(solution(a));
+console.log(solution(8, 3));
