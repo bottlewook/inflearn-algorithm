@@ -1,17 +1,16 @@
 function solution(s) {
+  let answer = 0;
   let stack = [];
-  for (let x of s) {
-    if (x === "(") stack.push("(");
+  for (let i = 0; i < s.length; i++) {
+    if (s[i] === "(") stack.push("(");
     else {
-      let temp = stack.pop();
-      if (temp === undefined) return "NO";
+      stack.pop();
+      if (s[i - 1] === "(") answer += stack.length;
+      else answer++;
     }
   }
-
-  if (stack.length) return "NO";
-
-  return "YES";
+  return answer;
 }
 
-let a = "(()(()))(()";
+let a = "()(((()())(())()))(())";
 console.log(solution(a));
