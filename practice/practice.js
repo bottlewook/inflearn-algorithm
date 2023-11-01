@@ -1,12 +1,13 @@
-function solution(n, k) {
-  let queue = Array.from({ length: n }, (_, index) => index + 1);
-  while (queue.length) {
-    for (let i = 1; i < k; i++) queue.push(queue.shift());
-    queue.shift();
-    if (queue.length === 1) answer = queue.shift();
+function solution(need, plan) {
+  let queue = Array.from(need);
+  for (let x of plan) {
+    if (queue.includes(x)) {
+      if (x !== queue.shift()) return "NO";
+    }
   }
-
-  console.log(queue);
+  if (queue.length) return "NO";
+  return "YES";
 }
-
-console.log(solution(8, 3));
+let a = "CBA";
+let b = "CBDAGE";
+console.log(solution(a, b));
