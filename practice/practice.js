@@ -1,13 +1,17 @@
 function solution(arr) {
-  for (let i = 0; i < arr.length; i++) {
-    let lowest = i;
-    for (let j = i + 1; j < arr.length; j++) {
-      if (arr[lowest] > arr[j]) lowest = j;
+  for (let i = arr.length - 1; i >= 0; i--) {
+    let noSwap = true;
+    for (let j = 0; j < i - 1; j++) {
+      if (arr[j] > arr[j + 1]) {
+        [arr[j], arr[j + 1]] = [arr[j + 1], arr[j]];
+        noSwap = false;
+      }
     }
-    [arr[lowest], arr[i]] = [arr[i], arr[lowest]];
+    if (noSwap) break;
   }
   return arr;
 }
 
 let arr = [13, 5, 11, 7, 23, 15];
 console.log(solution(arr));
+``;
