@@ -1,13 +1,13 @@
-function solution(need, plan) {
-  let queue = Array.from(need);
-  for (let x of plan) {
-    if (queue.includes(x)) {
-      if (x !== queue.shift()) return "NO";
+function solution(arr) {
+  for (let i = 0; i < arr.length; i++) {
+    let lowest = i;
+    for (let j = i + 1; j < arr.length; j++) {
+      if (arr[lowest] > arr[j]) lowest = j;
     }
+    [arr[lowest], arr[i]] = [arr[i], arr[lowest]];
   }
-  if (queue.length) return "NO";
-  return "YES";
+  return arr;
 }
-let a = "CBA";
-let b = "CBDAGE";
-console.log(solution(a, b));
+
+let arr = [13, 5, 11, 7, 23, 15];
+console.log(solution(arr));
