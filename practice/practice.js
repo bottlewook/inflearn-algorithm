@@ -1,14 +1,22 @@
 function solution(size, arr) {
   let answer = Array.from({ length: size }, () => 0);
-  for (let i = 0; i < arr.length; i++) {
-    if (!answer.includes(arr[i])) {
-      answer.unshift(arr[i]);
-      answer.pop();
-    } else {
-      answer.splice(answer.indexOf(arr[i]), 1);
-      answer.unshift(arr[i]);
+  arr.forEach((x) => {
+    let pos = -1;
+    for (let i = 0; i < size; i++) {
+      if (x === answer[i]) pos = i;
     }
-  }
+
+    if (pos === -1) {
+      for (let i = size - 1; i >= 1; i--) {
+        answer[i] = answer[i - 1];
+      }
+    } else {
+      for (let i = pos; i >= 1; i--) {
+        answer[i] = answer[i - 1];
+      }
+    }
+    answer[0] = x;
+  });
   return answer;
 }
 
