@@ -1,12 +1,15 @@
 function solution(n) {
+  let answer = "";
+
   function DFS(n) {
-    if (n < 1) return;
+    if (n === 0) return;
     else {
-      DFS(n - 1);
-      console.log(n);
+      DFS(Math.floor(n / 2));
+      answer += n % 2;
     }
   }
   DFS(n);
+  return answer;
 }
 
-console.log(solution(3));
+console.log(solution(11));
