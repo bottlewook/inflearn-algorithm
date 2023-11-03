@@ -1,14 +1,19 @@
-function solution(n) {
-  let answer = [];
-  let checkList = Array.from({ length: n }, () => 0);
-
+function solution(arr) {
+  let answer = "NO";
+  let sum = arr.reduce((a, b) => a + b, 0);
+  let checkList = Array.from({ length: arr.length + 1 }, () => 0);
+  let flag = 0;
   function DFS(vertex) {
-    if (vertex === n + 1) {
-      let temp = "";
-      for (let i = 1; i <= checkList.length; i++) {
-        if (checkList[i]) temp += i + " ";
+    if (flag) return;
+    if (vertex === arr.length + 1) {
+      let chSum = 0;
+      for (let i = 1; i < arr.length + 1; i++) {
+        if (checkList[i]) chSum += arr[i];
       }
-      if (temp.trim().length > 0) answer.push(temp);
+      if (sum - chSum === chSum) {
+        answer = "YES";
+        flag = 1;
+      }
     } else {
       checkList[vertex] = 1;
       DFS(vertex + 1);
@@ -21,4 +26,5 @@ function solution(n) {
   return answer;
 }
 
-console.log(solution(3));
+let arr = [1, 3, 5, 6, 7, 10];
+console.log(solution(arr));
