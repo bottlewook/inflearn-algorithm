@@ -1,18 +1,19 @@
-function solution(m, ps, pt) {
-  let answer = Number.MIN_SAFE_INTEGER;
-  function DFS(level, score, time) {
-    if (level === ps.length) {
-      if (time > m) return;
-      if (score > answer) answer = score;
+function solution(n, m) {
+  let answer = [];
+  let checkList = Array.from({ length: m }, () => 0);
+  function DFS(level) {
+    if (level === m) {
+      answer.push([...checkList]);
     } else {
-      DFS(level + 1, score + ps[level], time + pt[level]);
-      DFS(level + 1, score, time);
+      for (let i = 1; i <= n; i++) {
+        checkList[level] = i;
+        DFS(level + 1);
+      }
     }
   }
-  DFS(0, 0, 0);
+  DFS(0);
+
   return answer;
 }
 
-let ps = [10, 25, 15, 6, 7];
-let pt = [5, 12, 8, 3, 4];
-console.log(solution(20, ps, pt));
+console.log(solution(3, 2));
