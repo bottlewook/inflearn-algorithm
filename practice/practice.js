@@ -1,18 +1,18 @@
-function solution(c, arr) {
+function solution(m, ps, pt) {
   let answer = Number.MIN_SAFE_INTEGER;
-  let sum = 0;
-  function DFS(level, sum) {
-    if (level === arr.length) {
-      if (c >= sum && sum > answer) answer = Math.max(sum, answer);
+  function DFS(level, score, time) {
+    if (level === ps.length) {
+      if (time > m) return;
+      if (score > answer) answer = score;
     } else {
-      DFS(level + 1, sum + arr[level]);
-      DFS(level + 1, sum);
+      DFS(level + 1, score + ps[level], time + pt[level]);
+      DFS(level + 1, score, time);
     }
   }
-
-  DFS(0, 0);
+  DFS(0, 0, 0);
   return answer;
 }
 
-let arr = [81, 58, 42, 33, 61];
-console.log(solution(259, arr));
+let ps = [10, 25, 15, 6, 7];
+let pt = [5, 12, 8, 3, 4];
+console.log(solution(20, ps, pt));
