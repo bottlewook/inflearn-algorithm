@@ -1,17 +1,19 @@
-function solution(n, r) {
-  let answer;
-  let memo = Array.from(Array(50), () => Array(50).fill(0));
+function solution(n, m) {
+  let answer = [];
+  let temp = Array.from({ length: m }, () => 0);
 
-  function DFS(n, r) {
-    if (memo[n][r]) return memo[n][r];
-    if (n === r || r === 0) {
-      return 1;
+  function DFS(level, s) {
+    if (level === m) {
+      answer.push([...temp]);
     } else {
-      return (memo[n][r] = DFS(n - 1, r - 1) + DFS(n - 1, r));
+      for (let i = s; i <= n; i++) {
+        temp[level] = i;
+        DFS(level + 1, i + 1);
+      }
     }
   }
-  answer = DFS(n, r);
+  DFS(0, 1);
   return answer;
 }
 
-console.log(solution(49, 10));
+console.log(solution(4, 2));
