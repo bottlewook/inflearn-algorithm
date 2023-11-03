@@ -1,23 +1,18 @@
-function solution(arr) {
-  let answer = "NO";
-  let total = arr.reduce((a, b) => a + b, 0);
-  let flag = 0;
-  function DFS(vertex, sum) {
-    if (flag) return;
-    if (vertex === arr.length) {
-      if (total - sum === sum) {
-        answer = "YES";
-        flag = 1;
-      }
+function solution(c, arr) {
+  let answer = Number.MIN_SAFE_INTEGER;
+  let sum = 0;
+  function DFS(level, sum) {
+    if (level === arr.length) {
+      if (c >= sum && sum > answer) answer = Math.max(sum, answer);
     } else {
-      DFS(vertex + 1, sum + arr[vertex]);
-      DFS(vertex + 1, sum);
+      DFS(level + 1, sum + arr[level]);
+      DFS(level + 1, sum);
     }
   }
-  DFS(1, 0);
 
+  DFS(0, 0);
   return answer;
 }
 
-let arr = [1, 3, 5, 6, 7, 10];
-console.log(solution(arr));
+let arr = [81, 58, 42, 33, 61];
+console.log(solution(259, arr));
