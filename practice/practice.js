@@ -1,19 +1,25 @@
 function solution(m, arr) {
-  let answer = Number.MAX_SAFE_INTEGER;
-  function DFS(level, sum) {
-    if (sum > m) return;
-    if (sum === m) {
-      answer = Math.min(answer, level);
+  let answer = [];
+  let temp = Array.from({ length: m }, () => 0);
+  let checkList = Array.from({ length: arr.length }, () => 0);
+
+  function DFS(level) {
+    if (level === m) {
+      answer.push([...temp]);
     } else {
       for (let i = 0; i < arr.length; i++) {
-        DFS(level + 1, sum + arr[i]);
+        if (checkList[i] === 0) {
+          checkList[level] = 1;
+          temp[level] = arr[i];
+          DFS(level + 1);
+          checkList[level] = 0;
+        }
       }
     }
   }
-  DFS(0, 0);
-
+  DFS(0);
   return answer;
 }
 
-let arr = [1, 2, 5];
-console.log(solution(15, arr));
+let arr = [3, 6, 9];
+console.log(solution(2, arr));
