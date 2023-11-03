@@ -1,19 +1,17 @@
-function solution(n, m) {
-  let answer = [];
-  let temp = Array.from({ length: m }, () => 0);
-
-  function DFS(level, s) {
-    if (level === m) {
-      answer.push([...temp]);
+function solution(n, k, arr, m) {
+  let answer = 0;
+  function DFS(level, s, sum) {
+    if (level === k) {
+      if (sum % m === 0) answer++;
     } else {
-      for (let i = s; i <= n; i++) {
-        temp[level] = i;
-        DFS(level + 1, i + 1);
+      for (let i = s; i < n; i++) {
+        DFS(level + 1, i + 1, sum + arr[i]);
       }
     }
   }
-  DFS(0, 1);
+  DFS(0, 0, 0);
   return answer;
 }
 
-console.log(solution(4, 2));
+let arr = [2, 4, 5, 8, 12];
+console.log(solution(5, 3, arr, 6));
