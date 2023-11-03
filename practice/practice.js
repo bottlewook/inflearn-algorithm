@@ -1,28 +1,21 @@
 function solution(arr) {
   let answer = "NO";
-  let sum = arr.reduce((a, b) => a + b, 0);
-  let checkList = Array.from({ length: arr.length + 1 }, () => 0);
+  let total = arr.reduce((a, b) => a + b, 0);
   let flag = 0;
-  function DFS(vertex) {
+  function DFS(vertex, sum) {
     if (flag) return;
-    if (vertex === arr.length + 1) {
-      let chSum = 0;
-      for (let i = 1; i < arr.length + 1; i++) {
-        if (checkList[i]) chSum += arr[i];
-      }
-      if (sum - chSum === chSum) {
+    if (vertex === arr.length) {
+      if (total - sum === sum) {
         answer = "YES";
         flag = 1;
       }
     } else {
-      checkList[vertex] = 1;
-      DFS(vertex + 1);
-      checkList[vertex] = 0;
-      DFS(vertex + 1);
+      DFS(vertex + 1, sum + arr[vertex]);
+      DFS(vertex + 1, sum);
     }
   }
+  DFS(1, 0);
 
-  DFS(1);
   return answer;
 }
 
