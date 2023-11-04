@@ -1,41 +1,18 @@
-function solution(board) {
-  let answer = 0;
-  let dx = [-1, 0, 1, 0];
-  let dy = [0, 1, 0, -1];
+function solution() {
+  let answer = [];
+  let queue = [];
 
-  function DFS(x, y) {
-    if (x === board.length - 1 && y === board.length - 1) answer++;
-    else {
-      for (let k = 0; k < dx.length; k++) {
-        let nx = x + dx[k];
-        let ny = y + dy[k];
-        if (
-          nx >= 0 &&
-          nx < board.length &&
-          ny >= 0 &&
-          ny < board.length &&
-          board[nx][ny] === 0
-        ) {
-          board[nx][ny] = 1;
-          DFS(nx, ny);
-          board[nx][ny] = 0;
-        }
-      }
+  queue.push(1);
+  while (queue.length) {
+    let value = queue.shift();
+    answer.push(value);
+    for (let nextValue of [value * 2, value * 2 + 1]) {
+      if (nextValue > 7) continue;
+      queue.push(nextValue);
     }
   }
-  board[0][0] = 1;
-  DFS(0, 0);
+
   return answer;
 }
 
-let arr = [
-  [0, 0, 0, 0, 0, 0, 0],
-  [0, 1, 1, 1, 1, 1, 0],
-  [0, 0, 0, 1, 0, 0, 0],
-  [1, 1, 0, 1, 0, 1, 1],
-  [1, 1, 0, 0, 0, 0, 1],
-  [1, 1, 0, 1, 1, 0, 0],
-  [1, 0, 0, 0, 0, 0, 0],
-];
-
-console.log(solution(arr));
+console.log(solution());
