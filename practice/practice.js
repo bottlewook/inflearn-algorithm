@@ -1,27 +1,27 @@
 function solution(n, arr) {
   let answer = 0;
-  let graph = Array.from(Array(n + 1), () => Array(n + 1).fill(0));
+  let graph = Array.from(Array(n + 1), () => Array());
   let checkList = Array.from({ length: n + 1 }, () => 0);
 
-  for ([x, y] of arr) {
-    graph[x][y] = 1;
+  for (let [x, y] of arr) {
+    graph[x].push(y);
   }
 
   function DFS(vertex) {
-    if (vertex === 5) answer++;
+    if (vertex === n) answer++;
     else {
-      for (let i = 1; i <= n; i++) {
-        if (graph[vertex][i] === 1 && checkList[i] === 0) {
-          checkList[i] = 1;
-          DFS(i);
-          checkList[i] = 0;
+      for (let i = 0; i < graph[vertex].length; i++) {
+        if (checkList[graph[vertex][i]] === 0) {
+          checkList[graph[vertex][i]] = 1;
+          DFS(graph[vertex][i]);
+          checkList[graph[vertex][i]] = 0;
         }
       }
     }
   }
+
   checkList[1] = 1;
   DFS(1);
-
   return answer;
 }
 
