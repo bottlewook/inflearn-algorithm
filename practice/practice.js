@@ -1,12 +1,19 @@
-function solution(n) {
-  let checkList = Array.from({ length: n + 2 }, () => 0);
-  checkList[1] = 1;
-  checkList[2] = 2;
-
-  for (let i = 3; i <= n + 1; i++) {
-    checkList[i] = checkList[i - 1] + checkList[i - 2];
+function solution(arr) {
+  let answer = 0;
+  let dy = Array.from({ length: arr.length }, () => 0);
+  dy[0] = 1;
+  for (let i = 1; i < arr.length; i++) {
+    let max = Number.MIN_SAFE_INTEGER;
+    for (let j = 0; j < i; j++) {
+      if (arr[i] > arr[j] && max < dy[j]) {
+        max = dy[j];
+      }
+      dy[i] = max + 1;
+      answer = Math.max(answer, dy[i]);
+    }
   }
-  return checkList[n + 1];
+  return answer;
 }
 
-console.log(solution(7));
+let arr = [5, 3, 7, 8, 6, 2, 9, 4];
+console.log(solution(arr));
