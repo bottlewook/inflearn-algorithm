@@ -1,19 +1,31 @@
-function solution(arr) {
+function count(songs, capacity) {
+  let count = 1;
+  let sum = 0;
+  for (let x of songs) {
+    if (sum + x > capacity) {
+      count++;
+      sum = x;
+    } else sum += x;
+  }
+  return count;
+}
+
+function solution(m, songs) {
   let answer = 0;
-  let dy = Array.from({ length: arr.length }, () => 0);
-  dy[0] = 1;
-  for (let i = 1; i < arr.length; i++) {
-    let max = Number.MIN_SAFE_INTEGER;
-    for (let j = 0; j < i; j++) {
-      if (arr[i] > arr[j] && max < dy[j]) {
-        max = dy[j];
-      }
-      dy[i] = max + 1;
-      answer = Math.max(answer, dy[i]);
+  let lt = 0;
+  let rt = songs.reduce((a, b) => a + b, 0);
+
+  while (lt <= rt) {
+    let mid = Math.floor((lt + rt) / 2);
+    if (count(songs, mid) <= m) {
+      answer = mid;
+      rt = mid - 1;
+    } else {
+      lt = mid + 1;
     }
   }
   return answer;
 }
 
-let arr = [5, 3, 7, 8, 6, 2, 9, 4];
-console.log(solution(arr));
+let arr = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+console.log(solution(3, arr));
